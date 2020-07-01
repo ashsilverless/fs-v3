@@ -28,22 +28,26 @@ require_once('page-sections/header-elements.php');
 
 <div class="container">
     <div class="border-box main-content daily-data">
-<a href="#" class="addasset button button__raised button__inline">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg>
-    Add Asset</a>
 <div id="assetdetails" class="expand-panel newasset"></div>
 <div id="editasset" class="expand-panel editasset-target"></div>
+<div class="split-head">
+    <div>
+        <a href="#" class="addasset button button__raised button__inline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg>
+            Add Asset</a>
+        <h1 class="heading heading__2">Asset Allocation & Holdings</h1></div>
 
-		<h1 class="heading heading__2">Asset Allocation & Holdings : <span class=".update-date">Data Accurate as of <input class="accurateat" type="text" title="Data Accurate as of" value="<?=$correct_at;?>" size="12"></span></h1>
+    <div class="text-right"><h3 class="heading heading__4"><span class=".update-date">Data Accurate as of <input class="accurateat" type="text" title="Data Accurate as of" value="<?=$correct_at;?>" size="12"></span></h3></div>
 
+</div>
 <div class="asset-table">
     <div class="asset-table__head">
         <h3 class="heading heading__4">Asset Name</h3>
         <h3 class="heading heading__4">Category</h3>
-        <h3 class="heading heading__4 strategy">Portfolio</h3>
+        <h3 class="heading heading__4 strategy">Strategy</h3>
 		<?php $stratHeadings =  getTable('tbl_fs_strategy_names');
 		foreach ($stratHeadings as $strathead):
-            $portfolioChar = substr($strathead['strat_name'], -1);
+            $portfolioChar = $strathead['strat_name'];
 			echo ('<h3 class="heading heading__4">'.$portfolioChar.'</h3>');
 		endforeach;
 		?>
@@ -135,13 +139,13 @@ require_once(__ROOT__.'/global-scripts.php');?>
                 success: function(response)
                 {
 					$('.accurateat').val(response);
-					
+
                   // nothing really to do, unless you want a tick to say its been done I suppose.
                }
            });
         });
-		
-		
+
+
 		$(".toggler").click(function(e){
           e.preventDefault();
           $('.'+$(this).attr('data-prod-name')).toggle();

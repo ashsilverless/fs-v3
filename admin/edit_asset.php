@@ -74,23 +74,6 @@ catch(PDOException $e) {
             <input type="text" id="asset_name" name="asset_name" value="<?= $asset_name;?>" class="mb1">
             <label>Narrative</label>
             <textarea name="asset_narrative" id="asset_narrative" class="mb2"><?= $asset_narrative;?></textarea>
-            <label>Portfolio</label>
-            <div class="row">
-				<?php $stratHeadings =  getTable('tbl_fs_strategy_names');  $newId = 0;  $oldId = '';
-				foreach ($stratHeadings as $strathead):
-					$sv_id = getStratVal($asset_id,$strathead['id'],'id');  $sv_val =  getStratVal($asset_id,$strathead['id'],'strat_val');
-					$nmid = 'strat_'.$sv_id;
-					$oldId .= $sv_id.'|';
-                    $portfolioChar = substr($strathead['strat_name'], -1);
-				?>
-					<div class="col-3">
-						<label><?=$portfolioChar;?></label>
-						<input type="text" name="<?=$nmid;?>" id="<?=$nmid;?>" class="calculator-input" onkeypress="return event.charCode >= 46 && event.charCode <= 57" size="5"  value="<?=$sv_val;?>">
-					</div>
-				<?php endforeach; ?>
-				<input type="hidden" id="old_strats" name="old_strats" value="<?=substr($oldId, 0, -1);?>">
-
-            </div><!--row-->
         </div><!--details-->
 
         <div class="categories">
@@ -100,14 +83,17 @@ catch(PDOException $e) {
                 for($a=0;$a<count($cats);$a++){
                     $idString .= $cats[$a]['id'].'|';
                     $cats[$a]['id']== $cat_id ? $thisCheck = 'checked = "checked"' : $thisCheck = '';?>
+                <div class="categories__item">
                 <div class="radio-item">
                     <input class="star-marker" type="radio" name="cat" value="<?=$cats[$a]['id'];?>" id="cat<?=$cats[$a]['id'];?>" <?=$thisCheck;?>>
                     <?php define('__ROOT__', dirname(dirname(__FILE__)));
                     include(__ROOT__.'/admin/images/star.php'); ?>
                     <label for="cat<?=$cats[$a]['id'];?>"><?=$cats[$a]['cat_name'];?></label>
                 </div><!--radio-->
-                <a href="#" data-href="deletecat.php?id=<?=$cats[$a]['id'];?>" data-toggle="modal" data-target="#confirm-catdelete" class=" button button__delete elcat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.69 17.69"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,14.83v-12A2.55,2.55,0,0,1,2.88,0H14.8a2.56,2.56,0,0,1,2.89,2.86v12a2.56,2.56,0,0,1-2.89,2.86H2.88A2.55,2.55,0,0,1,0,14.83Zm14.78,1.64a1.52,1.52,0,0,0,1.69-1.7V2.92a1.53,1.53,0,0,0-1.69-1.71H2.9A1.53,1.53,0,0,0,1.21,2.92V14.77a1.51,1.51,0,0,0,1.69,1.7ZM5.06,11.79,8,8.85,5.06,5.9a.58.58,0,0,1,.42-1,.58.58,0,0,1,.41.17L8.84,8l3-3a.54.54,0,0,1,.41-.18.59.59,0,0,1,.59.6.63.63,0,0,1-.17.42l-3,2.95,2.94,2.93a.57.57,0,0,1,.17.42.59.59,0,0,1-1,.43L8.84,9.69,5.9,12.63a.59.59,0,0,1-.42.17.6.6,0,0,1-.6-.6A.58.58,0,0,1,5.06,11.79Z"/></g></g></svg></a><div class="color-panel-wrapper">
+                <a href="#" data-href="deletecat.php?id=<?=$cats[$a]['id'];?>" data-toggle="modal" data-target="#confirm-catdelete" class=" button button__delete elcat"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.69 17.69"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,14.83v-12A2.55,2.55,0,0,1,2.88,0H14.8a2.56,2.56,0,0,1,2.89,2.86v12a2.56,2.56,0,0,1-2.89,2.86H2.88A2.55,2.55,0,0,1,0,14.83Zm14.78,1.64a1.52,1.52,0,0,0,1.69-1.7V2.92a1.53,1.53,0,0,0-1.69-1.71H2.9A1.53,1.53,0,0,0,1.21,2.92V14.77a1.51,1.51,0,0,0,1.69,1.7ZM5.06,11.79,8,8.85,5.06,5.9a.58.58,0,0,1,.42-1,.58.58,0,0,1,.41.17L8.84,8l3-3a.54.54,0,0,1,.41-.18.59.59,0,0,1,.59.6.63.63,0,0,1-.17.42l-3,2.95,2.94,2.93a.57.57,0,0,1,.17.42.59.59,0,0,1-1,.43L8.84,9.69,5.9,12.63a.59.59,0,0,1-.42.17.6.6,0,0,1-.6-.6A.58.58,0,0,1,5.06,11.79Z"/></g></g></svg></a>
+                <div class="color-panel-wrapper">
                 <input type="color" data-colour-id="<?=$cats[$a]['id'];?>" class="color-picker" name="asset_color<?=$cats[$a]['id'];?>" value="<?=$cats[$a]['cat_colour'];?>">
+                </div>
             </div>
                 <?php } ?>
             </div><!--inner-->
@@ -120,6 +106,25 @@ catch(PDOException $e) {
             </div>-->
 
         </div><!--cats-->
+        <div class="strategy">
+            <label>Strategy</label>
+            <div class="row">
+                <?php $stratHeadings =  getTable('tbl_fs_strategy_names');  $newId = 0;  $oldId = '';
+                foreach ($stratHeadings as $strathead):
+                    $sv_id = getStratVal($asset_id,$strathead['id'],'id');  $sv_val =  getStratVal($asset_id,$strathead['id'],'strat_val');
+                    $nmid = 'strat_'.$sv_id;
+                    $oldId .= $sv_id.'|';
+                    $portfolioChar = $strathead['strat_name'];
+                ?>
+                    <div class="col-3">
+                        <label><?=$portfolioChar;?></label>
+                        <input type="text" name="<?=$nmid;?>" id="<?=$nmid;?>" class="calculator-input" onkeypress="return event.charCode >= 46 && event.charCode <= 57" size="5"  value="<?=$sv_val;?>">
+                    </div>
+                <?php endforeach; ?>
+                <input type="hidden" id="old_strats" name="old_strats" value="<?=substr($oldId, 0, -1);?>">
+
+            </div><!--row-->
+        </div>
     </div>
 
     <div class="control">
@@ -156,7 +161,7 @@ catch(PDOException $e) {
 </form>
     <script>
     feather.replace();
-		
+
 	$('.color-picker').change(function() {
             var col = $(this).val();
 			var cid = $(this).attr('data-colour-id');
@@ -171,7 +176,7 @@ catch(PDOException $e) {
                }
            });
         });
-		
+
 	function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");

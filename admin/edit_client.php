@@ -14,7 +14,7 @@ if($_GET['reset']=='true'){
 
 	$conn->exec($sql);
 	$conn = null;
-	
+
 	$reset = '<p>Client Reset</p>';
 }
 
@@ -60,9 +60,9 @@ try {
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       $accounts[] = $row;
   }
-	
-	
-	
+
+
+
   $query = "SELECT * FROM `tbl_fs_client_accounts` where fs_client_id = '$client_id' AND ca_linked = 1 AND bl_live = 1 ORDER by ca_order_by DESC;";
 
   $result = $conn->prepare($query);
@@ -157,6 +157,7 @@ require_once('page-sections/header-elements.php');
                         <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="<?=$destruct_date;?>">
                     </div> -->
                     <div class="item">
+						<label>Reset 2FA</label>
 						<a href="edit_client.php?id=<?=$client_id;?>&reset=true" class="button button__raised button__inline mb1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.59 19.59"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,9.79A9.84,9.84,0,0,1,9.79,0a9.85,9.85,0,0,1,9.8,9.79,9.85,9.85,0,0,1-9.8,9.8A9.85,9.85,0,0,1,0,9.79Zm16.11,5.76a8.53,8.53,0,1,0-12.63,0c.9-1.24,3.24-2.47,6.31-2.47S15.21,14.3,16.11,15.55ZM6.46,7.71a3.48,3.48,0,0,1,3.33-3.6,3.48,3.48,0,0,1,3.33,3.6A3.46,3.46,0,0,1,9.79,11.4,3.48,3.48,0,0,1,6.46,7.71Z"/></g></g></svg>Re-authenticate Client</a>
 						<?=$reset;?>
                     </div>
@@ -171,13 +172,13 @@ require_once('page-sections/header-elements.php');
                         <div class="add-account__existing">
 							<div class="search-input"><input type="text" name="ac_name" size="80" class="ac_name" placeholder="Client Code or Account Display Name"><input type="hidden" id="ac_id" size="5"></div>
 							<button class="button button__raised addaccount" value="Add Account">Add Account</button>
-							<button class="button button__raised addlinkedaccount" value="Add Linked Account">Add Linked Account</button>
+							<!--<button class="button button__raised addlinkedaccount" value="Add Linked Account">Add Linked Account</button>-->
                         </div>
                     </div><!--add account-->
-					
+
                     <div class="recess-box clientaccounts">
                         <div class="account-table">
-							<h2>Primary Accounts</h2>
+							<h2>Associated Accounts</h2>
                             <div class="account-table__head">
 								<label>Client Code</label>
                                 <label>Designation</label>
@@ -187,7 +188,7 @@ require_once('page-sections/header-elements.php');
                                 <label>Delete</label>
                             </div><!--head-->
                            <div id="blank">
-							 <?php foreach($accounts as $account) { 
+							 <?php foreach($accounts as $account) {
 									debug($account['ac_account_id']);
 									$acc = getFields('tbl_accounts','id',$account['ac_account_id']); ?>
 									<div class="account-table__body accounts">
@@ -202,12 +203,12 @@ require_once('page-sections/header-elements.php');
 											include(__ROOT__.'/admin/images/delete.php'); ?></a>
 										</div><!--radio-->
 									</div><!--body-->
-    			            <?php } ?>  
+    			            <?php } ?>
 						   </div>
                         </div><!--account table-->
-						
-						
-						<div class="account-table">
+
+
+						<!--<div class="account-table">
 							<h2>Linked Accounts</h2>
                             <div class="account-table__head">
 								<label>Client Code</label>
@@ -217,9 +218,9 @@ require_once('page-sections/header-elements.php');
 								<label>Priority</label>
                                 <label>Delete</label>
                             </div><!--head-->
-                           <div id="blank">
-							 <?php foreach($li_accounts as $li_account) { 
-									
+                           <!--<div id="blank">
+							 <?php foreach($li_accounts as $li_account) {
+
 									$acc = getFields('tbl_accounts','id',$li_account['ac_account_id']); ?>
 									<div class="account-table__body accounts">
 										<p><?=$acc[0]['ac_client_code'];?></p>
@@ -232,17 +233,17 @@ require_once('page-sections/header-elements.php');
 											<?php define('__ROOT__', dirname(dirname(__FILE__)));
 											include(__ROOT__.'/admin/images/delete.php'); ?></a>
 										</div><!--radio-->
-									</div><!--body-->
-    			            <?php } ?>  
+									<!--</div><!--body-->
+    			            <?php } ?>
 						   </div>
-                        </div><!--account table-->
+					   <!--</div><!--account table-->
                     </div>
                     <div class="commit-changes">
 						<p>Priority : <i>Higher numbers come first</i></p>
                         <input type="submit" class="button button__raised" value="Save Changes">
                     </div>
 
-                    
+
                 </div><!--client pers accounts-->
 
             </div><!--content-->
@@ -297,10 +298,10 @@ require_once(__ROOT__.'/global-scripts.php');?>
     </script>
 
     <script>
-		
+
 		$( document ).ready(function() {
 
-			
+
 			$('input.ac_name').typeahead({
                 name: 'ac_name',
 				display: 'value',
@@ -309,7 +310,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 				$("#ac_id").val(selection.label)
 			});
 
-			
+
 			$(".addaccount").click(function(e){
 				e.preventDefault();
 				var ac_id = $("#ac_id").val();
@@ -317,7 +318,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 				$(".clientaccounts").load("addclientaccount.php?id="+ac_id+"&cid=<?=$client_id;?>&lnk=0");
 				$('.ac_name').val('');
 			});
-			
+
 			$(".addlinkedaccount").click(function(e){
 				e.preventDefault();
 				var ac_id = $("#ac_id").val();
@@ -325,13 +326,13 @@ require_once(__ROOT__.'/global-scripts.php');?>
 				$(".clientaccounts").load("addclientaccount.php?id="+ac_id+"&cid=<?=$client_id;?>&lnk=1");
 				$('.ac_name').val('');
 			});
-			
+
 			$(document).on('click', '.delclientaccount', function(e) {
 				e.preventDefault();
 				var ac_id = getParameterByName('id',$(this).attr('href'));
-				
+
 				console.log(ac_id);
-				
+
 				//$("#clientaccounts").html('&nbsp');
 				$(".clientaccounts").load("del_client_account.php?id="+ac_id+"&cid=<?=$client_id;?>");
 			});

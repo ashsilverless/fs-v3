@@ -1,7 +1,7 @@
 /*! == BODY == */
 
 .sidebar {
-    padding:2rem 1rem 1rem;
+    padding:1rem;
     .prompt {
         border-bottom:1px solid $color_grey_light;
         margin-bottom: 1rem;
@@ -103,6 +103,7 @@
 
 .data-table {
     display: grid;
+    margin-bottom: 2rem;
     &__head,
     &__body,
     &__extended,
@@ -278,8 +279,17 @@ body .datepicker-panel>ul>li.highlighted {
 }
 
 .color-panel-wrapper {
+    position: absolute;
+    top: 0;
+    right: 2rem;
     border-radius: 1rem;
     overflow:hidden;
+    input[type=color] {
+        width: 2rem;
+    }
+    .radio-item {
+        margin-right: 4rem;
+    }
 }
 
 form.fund {
@@ -420,7 +430,7 @@ form.fund {
     .content {
         grid-column: 1/2;
         display: grid;
-        grid-template-columns: 3fr 2fr;
+        grid-template-columns: 2fr 2fr;
         grid-column-gap: 2rem;
         border-right: 1px solid $color_grey_light;
         padding-right: 2rem;
@@ -428,16 +438,26 @@ form.fund {
     .control {
         grid-column: 2/3;
     }
-
-
     .details {
         grid-column: 1/2;
     }
     .categories {
         grid-column: 2/3;
+        &__item {
+            position: relative;
+            display: block;
+            margin-bottom: 0.5rem;
+            .button__delete {
+                position: absolute;
+                right:-2rem;
+            }
+        }
         .inner {
             margin-bottom: 1rem;
         }
+    }
+    .strategy {
+        grid-column: 1/-1;
     }
     label {
         display: inline-block;
@@ -453,7 +473,7 @@ form.fund {
     &__item,
     &__foot {
         display: grid;
-        grid-template-columns: 6fr 4fr 1fr 1fr 1fr 1fr 3fr;
+        grid-template-columns: 4fr 3fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
     }
     &__head {
         grid-template-rows: 1fr 1fr;
@@ -841,7 +861,7 @@ form.fund {
     &__head,
     &__item {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr 3fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 2fr 1fr 1fr;
         grid-column-gap:2rem;
     }
     &__head {
@@ -991,7 +1011,11 @@ form.settings {
             }
             &.email, &.password {
                 grid-column:span 3;
-                grid-row:3/4;
+                grid-row:2/3;
+                text-transform: none;
+                input {
+                    text-transform: none;
+                }
             }
 
             &.user-id {
@@ -1036,9 +1060,10 @@ form.settings {
             &__head,
             &__body {
                 display: grid;
-                grid-template-columns:1fr 1fr 1fr 1fr 3fr 1fr;
+                grid-template-columns:1fr 1fr 1fr 2fr 1fr 1fr;
                 grid-column-gap: 1rem;
                 margin-bottom: 1rem;
+                padding: 0;
             }
             &__body {
                 margin-bottom:1rem;
@@ -1312,12 +1337,15 @@ form.settings {
     }
 }
 .chart-close {
-    @include raisedUI;
     position: absolute;
     top: -0.5rem;
     right: 0;
     z-index: 10;
+    border:1px solid $color_grey_light;
+    border-radius: 1rem;
     padding: 0.5rem 1rem .5rem 2.25rem;
+    font-size: 12px;
+    background:$color-grey-mid;
     cursor:pointer;
     svg {
         width: 1rem;
