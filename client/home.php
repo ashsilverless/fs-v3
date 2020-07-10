@@ -78,7 +78,9 @@ require_once(__ROOT__.'/page-sections/header-elements.php');
 require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 ?>
 
-    <div class="col-md-9">
+    <div class="col-md-9
+        <?php $_SESSION['fs_admin_name'] != '' ? $class='admin-logged-in':$class= 'client-logged-in';
+        echo $class;?>">
         <div class="border-box main-content daily-data">
             <div class="main-content__head">
                 <h1 class="heading heading__1">Valuation</h1>

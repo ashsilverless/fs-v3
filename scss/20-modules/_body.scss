@@ -1430,3 +1430,8 @@ form.settings {
         max-height: 0;
     }
 }
+.client-logged-in {
+    .reveal-detail {
+        display: none;
+    }
+}
