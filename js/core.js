@@ -10,7 +10,7 @@ $('.asset-wrapper__table .toggle').on('click', function() {
     $('text' + selectedId).addClass('active');
     function scrollToTop(){
       $('html, body').animate({
-          scrollTop: $('.item.active').offset().top
+          scrollTop: $('.item.active').offset().top - 100
       }, 'slow');
       }
       setTimeout(scrollToTop, 600);
@@ -23,6 +23,12 @@ $('circle.donut-segment').on('click', function() {
     var selectedId = '.' + $(this).attr('id');
     $(selectedId).toggleClass('active');
     $('text' + selectedId).addClass('active');
+    function scrollToTop(){
+      $('html, body').animate({
+          scrollTop: $('.item.active').offset().top - 100
+      }, 'slow');
+      }
+      setTimeout(scrollToTop, 600);
 })
 
 $.fn.toggleText = function(t1, t2){
