@@ -39,9 +39,9 @@ try {
 		$labels3 .= "'".$row['correct_at']."',";
 	}
 
-	
+
 	$query = "SELECT * FROM `tbl_fs_maintenance` where id = 1 ;";
-	
+
 	$result = $conn->prepare($query);
   	$result->execute();
 
@@ -49,7 +49,7 @@ try {
 		  $m_show = $row['m_show'];
 	  }
 
-	$m_show == 0 ? $maintenance_status = '<span style="color:blue; cursor:pointer">Enable Emergency Maintenance</span>' : $maintenance_status = '<span style="color:red; cursor:pointer">Disable Emergency Maintenance</span>'; 
+	$m_show == 0 ? $maintenance_status = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.4 20.74"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,13.68V5.4A1.59,1.59,0,0,1,1.59,3.65a1.45,1.45,0,0,1,1.08.44V2.9A1.55,1.55,0,0,1,4.25,1.19a1.31,1.31,0,0,1,1,.41A1.66,1.66,0,0,1,6.89,0,1.6,1.6,0,0,1,8.53,1.61a1.38,1.38,0,0,1,1-.42,1.6,1.6,0,0,1,1.66,1.75v8.32a.07.07,0,0,0,.08.08.1.1,0,0,0,.09-.07l.83-2.07a1.62,1.62,0,0,1,2.12-1,1.73,1.73,0,0,1,.9,2.39l-1.76,5C12.26,19,9.92,20.74,6.63,20.74,2.73,20.74,0,18.2,0,13.68ZM12.53,15.2l1.77-5c.19-.54.06-1-.38-1.14s-.81.08-1,.58l-1.3,3a.77.77,0,0,1-.76.56.63.63,0,0,1-.64-.69V3a.76.76,0,0,0-.77-.84A.78.78,0,0,0,8.64,3V9.9a.49.49,0,0,1-.5.51.48.48,0,0,1-.48-.51v-8A.79.79,0,0,0,6.89,1a.8.8,0,0,0-.79.86v8a.5.5,0,1,1-1,0V3a.78.78,0,0,0-.79-.84A.75.75,0,0,0,3.56,3V10.4a.5.5,0,1,1-1,0V5.49a.78.78,0,0,0-.79-.84A.75.75,0,0,0,1,5.49v8.09c0,4,2.21,6.11,5.57,6.11C9.34,19.69,11.42,18.32,12.53,15.2Z"/></g></g></svg><span>Enable Emergency Maintenance</span>' : $maintenance_status = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.84 21.28"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.71,20.25H4.55C2.08,20.25,0,17.66,0,14.45S1.89,8.6,4.19,8.6H6a39.7,39.7,0,0,0,4.85-7C11.46.46,12,0,12.9,0a2,2,0,0,1,2,2.09c0,1.9-1.64,4.33-1.64,5.44,0,.31.25.5.65.5h3.57a2.33,2.33,0,0,1,2.35,2.37,2.25,2.25,0,0,1-.48,1.48,2.47,2.47,0,0,1,.36,1.3A2.33,2.33,0,0,1,19,15a2.33,2.33,0,0,1,.27,1.15A2.28,2.28,0,0,1,18.15,18a2,2,0,0,1,.15.78,2.33,2.33,0,0,1-2,2.22,12.85,12.85,0,0,1-2.88.24H12.09A9.35,9.35,0,0,1,7.71,20.25ZM6.16,19.11a6.08,6.08,0,0,1-2.08-4.7,8.67,8.67,0,0,1,1.2-4.66H4.19c-1.6,0-3.05,2.08-3.05,4.7s1.6,4.66,3.41,4.66Zm9.87.82c.75-.18,1.13-.59,1.13-1.11a1.81,1.81,0,0,0-.25-.87.63.63,0,0,1-.05-.22.38.38,0,0,1,.23-.34,1.46,1.46,0,0,0,1-1.29,2,2,0,0,0-.36-1,.64.64,0,0,1-.07-.24.54.54,0,0,1,.28-.44,1.44,1.44,0,0,0,.63-1.2,1.6,1.6,0,0,0-.41-1.07.47.47,0,0,1-.11-.27.49.49,0,0,1,.16-.35,1.35,1.35,0,0,0,.49-1.09,1.2,1.2,0,0,0-1.21-1.23H14.06a1.72,1.72,0,0,1-1.93-1.64c0-1.48,1.64-3.85,1.64-5.44a.84.84,0,0,0-.87-.95c-.37,0-.6.18-1,1A45.71,45.71,0,0,1,7,9.22a7.7,7.7,0,0,0-1.79,5.21c0,3.33,2.79,5.66,6.88,5.7h1.33A11,11,0,0,0,16,19.93Z"/></g></g></svg><span class="button__danger">Disable Emergency Maintenance</span>';
 
   $conn = null;        // Disconnect
 
@@ -123,12 +123,10 @@ require_once('page-sections/sidebar-elements.php');
                     Update Daily Prices</a>
                 <a href="./clients.php" class="toggle button button__raised mb1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.77 20.77"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M3.69,9.72a.66.66,0,0,1,0,1.32h-3a.66.66,0,1,1,0-1.32ZM5.2,14.65a.64.64,0,0,1,.92,0,.66.66,0,0,1,0,.93L4,17.71a.67.67,0,0,1-.93,0,.66.66,0,0,1,0-.93ZM3.07,4A.65.65,0,1,1,4,3.07L6.12,5.21a.64.64,0,0,1,0,.92.65.65,0,0,1-.92,0Zm6.2,6.61a.9.9,0,0,1,0-1.26.87.87,0,0,1,1.25,0l9.35,9.38a.91.91,0,0,1,0,1.26.88.88,0,0,1-1.26,0Zm3.92,2.26L10.27,9.93c-.16-.16-.32-.19-.47-.06a.31.31,0,0,0,0,.47l2.91,2.93ZM11,3.68a.66.66,0,1,1-1.31,0v-3A.66.66,0,0,1,11,.65Zm0,16.43a.66.66,0,1,1-1.31,0v-3a.66.66,0,1,1,1.31,0Zm5.74-17a.65.65,0,0,1,.93,0,.67.67,0,0,1,0,.93L15.57,6.13a.65.65,0,0,1-.93,0,.64.64,0,0,1,0-.92Zm.31,8a.66.66,0,1,1,0-1.32h3a.66.66,0,0,1,0,1.32Z"/></g></g></svg>
                     Edit Client</a>
-                <a href="add_client.php" class="toggle button button__raised">
+                <a href="add_client.php" class="toggle button button__raised mb1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.59 21.18"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,16.33a4.89,4.89,0,0,1,4.85-4.87,4.86,4.86,0,1,1,0,9.72A4.88,4.88,0,0,1,0,16.33ZM5.41,19V16.84h2a.52.52,0,1,0,0-1h-2V13.65a.52.52,0,0,0-.55-.53.52.52,0,0,0-.54.53V15.8h-2a.52.52,0,0,0,0,1h2V19a.52.52,0,0,0,.54.53A.52.52,0,0,0,5.41,19Zm16.18-2.6c0,1-.68,1.44-2.12,1.44H10.65a4.85,4.85,0,0,0,.19-1.15h9c.43,0,.59-.11.59-.42,0-1.85-2.62-4.9-7.21-4.9a8.39,8.39,0,0,0-4,.93,5.7,5.7,0,0,0-.87-.83,9.4,9.4,0,0,1,4.83-1.25C18.38,10.21,21.59,13.84,21.59,16.39ZM9.08,4.39A4.26,4.26,0,0,1,13.18,0a4.24,4.24,0,0,1,4.11,4.38,4.3,4.3,0,0,1-4.11,4.5A4.3,4.3,0,0,1,9.08,4.39Zm7,0a3.06,3.06,0,0,0-2.9-3.23,3.06,3.06,0,0,0-2.89,3.24,3.12,3.12,0,0,0,2.89,3.34A3.13,3.13,0,0,0,16.08,4.38Z"/></g></g></svg>
                     Create Client</a>
-				<a href="#" class="toggle button button__raised maintenance">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.59 21.18"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,16.33a4.89,4.89,0,0,1,4.85-4.87,4.86,4.86,0,1,1,0,9.72A4.88,4.88,0,0,1,0,16.33ZM5.41,19V16.84h2a.52.52,0,1,0,0-1h-2V13.65a.52.52,0,0,0-.55-.53.52.52,0,0,0-.54.53V15.8h-2a.52.52,0,0,0,0,1h2V19a.52.52,0,0,0,.54.53A.52.52,0,0,0,5.41,19Zm16.18-2.6c0,1-.68,1.44-2.12,1.44H10.65a4.85,4.85,0,0,0,.19-1.15h9c.43,0,.59-.11.59-.42,0-1.85-2.62-4.9-7.21-4.9a8.39,8.39,0,0,0-4,.93,5.7,5.7,0,0,0-.87-.83,9.4,9.4,0,0,1,4.83-1.25C18.38,10.21,21.59,13.84,21.59,16.39ZM9.08,4.39A4.26,4.26,0,0,1,13.18,0a4.24,4.24,0,0,1,4.11,4.38,4.3,4.3,0,0,1-4.11,4.5A4.3,4.3,0,0,1,9.08,4.39Zm7,0a3.06,3.06,0,0,0-2.9-3.23,3.06,3.06,0,0,0-2.89,3.24,3.12,3.12,0,0,0,2.89,3.34A3.13,3.13,0,0,0,16.08,4.38Z"/></g></g></svg>
-                    <?=$maintenance_status?></a>
+				<a href="#" class="toggle button button__raised maintenance mb1"><?=$maintenance_status?></a>
             </div>
         </div>
 
@@ -165,12 +163,12 @@ require_once('modals/logout.php');
 require_once(__ROOT__.'/global-scripts.php');?>
 
     <script>
-		
+
 		$(".view-trans").click(function(e){
             e.preventDefault();
             $('.trans-file-raw').toggleClass('active');
     	});
-		
+
 		$(document).on('click', '.maintenance', function(e) {
 			e.preventDefault();
 			$(".maintenance").load("togglemaintenance.php");
@@ -193,7 +191,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 					{title : "Data files", extensions : "xlsx"}
 				]
 			},
-			
+
 			init: {
 				PostInit: function() {
 					document.getElementById('transfilelist').innerHTML = '';
@@ -205,7 +203,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 
 				UploadProgress: function(up, file) {
 					$( "#trans_file" ).val(file);
-					$('#data_info').html('<strong>Uploading & Parsing Datafile</strong><br>Please wait.....<br><br><img src="images/animated_progress.gif">');
+					$('#data_info').html('<strong>Uploading & Parsing Datafile</strong><br>Please wait...<br><br><img src="images/animated_progress.gif">');
 				},
 
 				FileUploaded: function(up, file, info) {

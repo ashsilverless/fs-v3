@@ -1,21 +1,21 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 
-function array_flatten($array) { 
-  if (!is_array($array)) { 
-    return FALSE; 
-  } 
-  $result = array(); 
-  foreach ($array as $key => $value) { 
-    if (is_array($value)) { 
-      $result = array_merge($result, array_flatten($value)); 
-    } 
-    else { 
-      $result[$key] = $value; 
-    } 
-  } 
-  return $result; 
-} 
+function array_flatten($array) {
+  if (!is_array($array)) {
+    return FALSE;
+  }
+  $result = array();
+  foreach ($array as $key => $value) {
+    if (is_array($value)) {
+      $result = array_merge($result, array_flatten($value));
+    }
+    else {
+      $result[$key] = $value;
+    }
+  }
+  return $result;
+}
 
 
 $user_id = $_SESSION['fs_client_featherstone_uid'];
@@ -43,10 +43,10 @@ try {
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			 $clientcats[] =  $row['cat_id'];
         }
-	
+
 	$client_cats = array_flatten($clientcats);
-	
-	
+
+
 	$query = "SELECT *  FROM `tbl_fs_categories` where bl_live = 1 order by id desc limit 1;";
     $result = $conn->prepare($query);
     $result->execute();
@@ -56,7 +56,7 @@ try {
 			 $confirmed_date =  date('j M y',strtotime($row['correct_at']));
 
         }
-	
+
 
   // $conn = null;        // Disconnect
 
@@ -84,7 +84,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                     </div>
 
 <div class="asset-wrapper">
-	
+
 	<!-- ###########################       THE DONUT      ###################### -->
     <div class="asset-wrapper__chart">
 
@@ -97,14 +97,13 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
             Stroke-dashoffset: This is the running sum of the value of the holding, expressed as a negative value to enable positioning.
             -->
-            <?php 
+            <?php
 			foreach($client_cats as $catid) {
-				
+
 				$asset_color = getField('tbl_fs_categories','cat_colour','id',$catid);
 				$asset_name = getField('tbl_fs_categories','cat_name','id',$catid);
 				$thisAsset = 0;
-				
-				$query = "SELECT * FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND cat_id LIKE '$catid' AND bl_live = 1;";
+				$query = "SELECT * FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND cat_id LIKE '$catid' and strat_val > 0 AND bl_live = 1;";
 				$result = $conn->prepare($query);
 				$result->execute();
 
@@ -112,17 +111,17 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 				  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 					 $thisAsset += $row['strat_val'];
 				  }
-				
+
 				$assetBalance = 100 - $thisAsset;
 				?>
 				<circle id="asset<?=$catid;?>" class="donut-segment <?=$catid;?> <?=$asset_name;?> asset<?=$catid;?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
                <text x="22" y="22" text-anchor="middle" alignment-baseline="middle" class="asset<?=$catid;?>"><?=$thisAsset;?>%</text>
-				
+
 			<?php $assetTotal = $thisAsset += $assetTotal; }?>
 
         </svg>
-		
-		
+
+
         <div class="key border-box">
             <?php foreach($client_cats as $catid) {
 
@@ -136,45 +135,53 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
             <?php }?>
         </div>
     </div>
-    
-	
+
+
 	<!-- ###########################       LIST OF ASSETS      ###################### -->
-	
+
 	<div class="asset-wrapper__table">
         <div class="head">
             <h4 class="heading heading__4">Fund</h4>
             <h4 class="heading heading__4"><!--Growth Rate--></h4>
         </div>
-        <?php 
+        <?php
 			foreach($client_cats as $catid) {
-				
+
 				$asset_color = getField('tbl_fs_categories','cat_colour','id',$catid);
 				$asset_name = getField('tbl_fs_categories','cat_name','id',$catid);
-				
-				
-				
+
+
+
 
 				?>
 				<div id="asset<?=$catid;?>" class="item asset<?=$catid;?>" data-asset="asset<?=$catid;?>">
-					
+
 					<h4 class="heading heading__4"><div class="key__item"><div class="color" style="background-color:<?= $asset_color;?>;"></div><?=$asset_name;?></div></h4>
 					<div class="toggle button button__raised button__toggle">
 						<i class="fas fa-caret-down arrow"></i>
 					</div>
-					<p><table><?php 
-						$query = "SELECT *  FROM `tbl_fs_assets` where cat_id LIKE '$catid' AND bl_live = 1 order by id ASC;";
-						$result = $conn->prepare($query);
-						$result->execute();
+					<p><table><?php
 
-							  // Parse returned data
-							  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-								  echo ('<tr><td><strong>'.$row['fs_asset_name'].'</strong></td></tr>');
-								  echo ('<tr><td>'.$row['fs_asset_narrative'].'</td></tr>');
+						$sv = getTable('tbl_fs_asset_strat_vals','id','strat_id = '.$strat_id.' AND cat_id = '.$catid.' AND strat_val > 0 AND bl_live = 1');
+
+						foreach($sv as $asset) {
+							$query = "SELECT *  FROM `tbl_fs_assets` where id = '".$asset['asset_id']."';";
+							$result = $conn->prepare($query);
+							$result->execute();
+
+							// Parse returned data
+							while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+								echo ('<tr><td><strong>'.$row['fs_asset_name'].'</strong></td></tr>');
+								echo ('<tr><td>'.$row['fs_asset_narrative'].'</td></tr>');
 							}
+
+						}
+
+
 					?></table></p>
 				</div>
-		
-				
+
+
 				<?php
 				/*$query = "SELECT * FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND cat_id LIKE '$catid' AND bl_live = 1;";
 				$result = $conn->prepare($query);
@@ -186,14 +193,14 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 				  }*/
 
 			}
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 	/*	foreach($assetData as $asset) {
 
           $asset_color = getField('tbl_fs_assets','asset_color','id',$asset['asset_id']);
@@ -212,9 +219,9 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
         </div>
         <?php }*/?>
     </div>
-	
-	
-	
+
+
+
 </div>
     </div>
 </div>
