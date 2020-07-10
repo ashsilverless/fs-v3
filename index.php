@@ -6,7 +6,7 @@ $m_show = getMShow();
 
 
 if($m_show==1){
-	$m_alert = '<h4>System currently undergoing Maintenenance</h4>';
+	$m_alert = '<h4>System currently undergoing maintenenance</h4>';
 };
 
 

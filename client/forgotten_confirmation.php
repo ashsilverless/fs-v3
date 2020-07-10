@@ -26,7 +26,7 @@
 							<h2>Forgotten Password</h2>
 
 									<div class="col-12 mb-4"><p style="font-size:1.4em;">Thank you.</p>
-										<p style="font-size:1.25em;">If the email address exists in the system, and is valid, an email will be sent to that account with a temporary password.<br>After logging into the system, please change your password with your 'Account Settings'</p> 
+										<p style="font-size:1.25em;">If the email address exists in the system and is valid, an email will be sent to that account with a temporary password.<br>After logging into the system, please change your password with your 'Account Settings'</p>
 									</div>
 
 
@@ -50,7 +50,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Silverless 2019</span>
+            <span>Copyright &copy; Silverless 2020</span>
           </div>
         </div>
       </footer>

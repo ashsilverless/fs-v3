@@ -126,7 +126,7 @@ require_once('page-sections/header-elements.php');
 		foreach($userData as $staff) {?>
     <div class="staff-table__item">
 
-<h3 class="heading heading__4"><?= $staff['user_prefix'].' '.$staff['first_name'].' '.$staff['last_name'];?></h3>
+<h3 class="heading heading__4"><?= $staff['first_name'].' '.$staff['last_name'];?></h3>
 <p><?= $staff['email_address'];?></p>
 
 <p><?= $user_type[$staff['agent_level']];?></p>

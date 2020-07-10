@@ -104,7 +104,9 @@ for($a=0;$a<$time_period;$a+=$step){
 
 		endforeach;
 
-		$labels .= "'".$thedate."',";
+		$thelabeldate = date("d-m-Y", strtotime($thedate));
+
+		$labels .= "'".$thelabeldate."',";
 
 		#################
 
@@ -121,7 +123,7 @@ $conn = null;        // Disconnect
 if( $dl_data != 'dl'){
 
 	$time_elapsed_secs = microtime(true) - $start_time;
-	
+
 	$style1 = 'style = "text-decoration: underline;"';
 ?>
 
@@ -178,6 +180,19 @@ if( $dl_data != 'dl'){
 			},
 
 			options: {
+				scales: {
+					yAxes: [{
+					  ticks: {
+						beginAtZero: true,
+						  userCallback: function(value, index, values) {
+							value = value.toString();
+							value = value.split(/(?=(?:...)*$)/);
+							value = value.join('.');
+							return '£' + value;
+						   }
+					  }
+					}]
+				},
 				tooltips: {
 					enabled: true
 				},

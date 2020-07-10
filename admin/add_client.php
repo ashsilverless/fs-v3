@@ -5,7 +5,7 @@ include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 $user_type = array("1"=>"Admin", "2"=>"Super Admin", "999"=>"<i style='color:red;font-weight:bold;font-size:0.9em;'>! Temporary Block !</i>");
 
 $datetime = new DateTime('tomorrow');
-$tomorrow = $datetime->format('Y-m-d');
+$tomorrow = $datetime->format('d m Y');
 
 ?>
 <?php
@@ -44,7 +44,6 @@ require_once('page-sections/header-elements.php');
                         <label>Client Email</label>
                         <input type="text" id="client_email" name="client_email" value="">
                     </div>
-                    <div class="item"></div>
                     <div class="item half push-right mb2">
                         <label>Password</label>
                         <input type="password" id="password" name="password" value="">
@@ -56,9 +55,11 @@ require_once('page-sections/header-elements.php');
                         <label>Strategy</label>
                             <div class="select-wrapper">
                             <select name="strategy" id="strategy" class="select-css">
-                              <option value="Sensible">Sensible</option>
-                              <option value="Steady">Steady</option>
-                              <option value="Serious">Serious</option>
+								<option value="" selected = 'selected'>Select</option>
+								<?php $stratHeadings =  getTable('tbl_fs_strategy_names');
+								foreach ($stratHeadings as $strathead): ?>
+									<option value="<?=$strathead['strat_name'];?>" <?php if(strtolower ($strategy)==strtolower ($strathead['strat_name'])){?>selected = 'selected' <?php }?>><?=$strathead['strat_name'];?></option>
+								<?php endforeach; ?>
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
@@ -385,7 +386,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 
         $("#passwordview").hide();
 
-		$('#destruct_date').datepicker({  format: "yyyy-mm-dd" , todayHighlight: true });
+		$('#destruct_date').datepicker({  format: "dd mm yyyy" , todayHighlight: true });
 
 		 $("#passwordview").keyup(function( event ) {
 		  	newPass =  $("#passwordview").val();

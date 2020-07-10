@@ -9,7 +9,7 @@
             	v-0.1c17.7-50.4,38.6-73.4,38.6-73.4l8.4,18.1l0.2-33c0,0,26.2-33.8,35.7-42.1S102.1,0,102.1,0s4.4,64.1-11.1,122.7l-12.2,46.5
             	l-31.7,25.4l29.4-14.2c0,0-18.5,34.2-36.2,39.2l-17.8,5L3.8,266.1z"/>
             </svg>
-            <p>Featherstone Partners &copy; <?php echo date('Y');?> All Rights Reserved <a href="">Disclaimer</a><a href="">Privacy Policy</a><a href="">Terms & Conditions</a></p>
+            <p>Featherstone Partners &copy; <?php echo date('Y');?> All Rights Reserved <a href="">Disclaimer</a><a href="https://featherstonepartners.co.uk/privacy">Privacy Policy</a><a href="https://featherstonepartners.co.uk/terms-conditions">Terms & Conditions</a></p>
         </div>
         <div class="help">
             <a href="help.php" class="button button__raised button__inline">
