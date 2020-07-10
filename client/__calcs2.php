@@ -189,10 +189,10 @@ catch(PDOException $e) {
 					$GrandGain = $grand_total_value -  $account_total;
 					$GrandGainPercent = round(((($grand_total_value / $account_total) * 100) - 100),2);
 
+debug($account_shares);
 
 
-
-					if($account_total >0){
+					if($account_shares >0){
 
 ?>
 
@@ -294,7 +294,9 @@ catch(PDOException $e) {
 				$SuperGainPercent = round(((($super_value / $super_invested) * 100) - 100),2);
 
 
+				debug($SuperGainPercent);
 
+				if(is_nan($SuperGainPercent)){ $SuperGainPercent = 0; };
 
 				?>
 
