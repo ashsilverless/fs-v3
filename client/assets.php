@@ -160,7 +160,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 					<div class="toggle button button__raised button__toggle">
 						<i class="fas fa-caret-down arrow"></i>
 					</div>
-					<p><table><?php
+					<div class="asset-inner"><?php
 
 						$sv = getTable('tbl_fs_asset_strat_vals','id','strat_id = '.$strat_id.' AND cat_id = '.$catid.' AND strat_val > 0 AND bl_live = 1');
 
@@ -171,14 +171,14 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
 							// Parse returned data
 							while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-								echo ('<tr><td><strong>'.$row['fs_asset_name'].'</strong></td></tr>');
-								echo ('<tr><td>'.$row['fs_asset_narrative'].'</td></tr>');
+								echo ('<h3 class="heading heading__5">'.$row['fs_asset_name'].'</h3>');
+								echo ('<p>'.$row['fs_asset_narrative'].'</p>');
 							}
 
 						}
 
 
-					?></table></p>
+					?></div>
 				</div>
 
 

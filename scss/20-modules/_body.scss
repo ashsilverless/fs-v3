@@ -627,7 +627,7 @@ form.fund {
         .head,
         .item {
             display: grid;
-            grid-template-columns: 7fr 1fr 1fr;
+            grid-template-columns: 7fr 1fr;
             grid-column-gap: 2rem;
             text-align: left;
             align-items: center;
@@ -660,14 +660,19 @@ form.fund {
             .heading {
                 color: $color_blue;
             }
-            p {
+            .asset-inner {
                 overflow:hidden;
+                grid-column: 1/3;
                 transition:max-height 1s ease;
                 max-height: 0;
+                margin-top: 1rem;
+                p {
+                    margin-bottom: 2rem;
+                }
             }
             &.active {
                 @include recessUI;
-                p {
+                .asset-inner {
                     max-height: 100vh;
                 }
             }
