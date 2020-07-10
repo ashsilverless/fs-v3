@@ -33,10 +33,10 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 		foreach ($old_strat_ids as $sid):
 			$val = $_POST['strat_'.$sid];
 
-			debug("UPDATE `tbl_fs_asset_strat_vals` SET `strat_val` =  '$val' WHERE id = '$sid';");
+			debug("UPDATE `tbl_fs_asset_strat_vals` SET `strat_val` =  '$val', `cat_id` = '$cat_id' WHERE id = '$sid';");
 
 
-			$sql_new_catid = "UPDATE `tbl_fs_asset_strat_vals` SET `strat_val` =  '$val' WHERE id = '$sid';";
+			$sql_new_catid = "UPDATE `tbl_fs_asset_strat_vals` SET `strat_val` =  '$val', `cat_id` = '$cat_id' WHERE id = '$sid';";
 			$conn->exec($sql_new_catid);
 		endforeach;
 		

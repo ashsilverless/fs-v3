@@ -30,7 +30,7 @@ h1, h2, h3 ,h4, h5, h6,
   @include heading;
   margin:0;
   &__1 {
-    font: ($font_size*2)+px / ($font_line-height*2.7)+px $font_secondary;
+    font: ($font_size*1.8)+px / ($font_line-height*2.4)+px $font_secondary;
   }
   &__2 {
     font: ($font_size*1.6)+px / ($font_line-height*2.7)+px $font_secondary;

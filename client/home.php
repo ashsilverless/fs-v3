@@ -81,7 +81,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     <div class="col-md-9">
         <div class="border-box main-content daily-data">
             <div class="main-content__head">
-                <h1 class="heading heading__1">Daily Valuation Data</h1>
+                <h1 class="heading heading__1">Valuation</h1>
                 <p class="mb3">Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
             </div>
 
@@ -180,7 +180,7 @@ require_once(__ROOT__.'/modals/maintenance.php');
 
 		$(document).on('click', '.accountchart', function(e) {
             e.preventDefault();
-			$(".chartcontainer").html('<h3>Compiling Data....</h3>');
+			$(".chartcontainer").html('<p><i class="fas fa-spinner"></i> Compiling Chart Data</p>');
             var ac_id = getParameterByName('ac_id',$(this).attr('href'));
             $(".chartcontainer").load("chart.php?ac_id="+ac_id);
         });
@@ -208,8 +208,16 @@ require_once(__ROOT__.'/modals/maintenance.php');
 
 
     $(document).on('click', '.toggle', function(e) {
-              $(this).closest( '.data-table__account-wrapper' ).toggleClass('active');
+              $(this).closest( '.data-table__account-wrapper' ).addClass('active');
+              $(this).addClass('active-button');
+              $(this).children('.data-toggle-button').text('Close Detailed Breakdown');
         });
+
+        $(document).on('click', '.toggle.active-button', function(e) {
+                  $(this).closest( '.data-table__account-wrapper' ).removeClass('active');
+                  $(this).children('.data-toggle-button').text('View Detailed Breakdown');
+                  $(this).removeClass('active-button');
+            });
 
         $(document).on('click', '.chart-close', function(e) {
             if ($('.chartcontainer').hasClass('close')) {

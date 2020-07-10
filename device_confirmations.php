@@ -59,7 +59,7 @@ $qrCodeUrl 	= $ga->getQRCodeGoogleUrl($user, $secret,'www.featherstone.co.uk');
 										<label>Enter your Secure Code</label>
 										<p><a>How do I get my code?</a></p>
 										<?php }?>
-										<input type="text" name="code" id="code" autocomplete="off" value="" required>
+										<input type="text" name="code" id="code" autocomplete="off" value="" required autofocus="autofocus">
 <?php if($_SESSION['fs_client_error']){?> <!--   ERROR BOX/   --><div class="error_box">Incorrect Code. Please try again. (or contact a dude)</div><!--   /ERROR BOX   --><?php }?>
                                     </div>
 

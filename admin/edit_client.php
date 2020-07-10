@@ -98,7 +98,7 @@ require_once('page-sections/header-elements.php');
 
             <div class="content client">
                 <div class="client__pers-details">
-                    <div class="item prefix mb1">
+                    <!--<div class="item prefix mb1">
                         <label>Prefix</label>
                         <div class="select-wrapper">
                             <select name="user_prefix" id="user_prefix" class="select-css">
@@ -108,7 +108,7 @@ require_once('page-sections/header-elements.php');
           					  <option value="Dr" <?php if($user_prefix=='Dr'){?>  selected="selected"<?php }?>>Dr</option>
                             </select>
                         </div><!--sel-->
-                    </div>
+                    </div>-->
                     <div class="item first-name">
                         <label>First Name</label>
                         <input type="text" id="first_name" name="first_name" value="<?= $first_name;?>">
@@ -151,13 +151,12 @@ require_once('page-sections/header-elements.php');
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item">
                         <label>Expires</label>
                         <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="<?=$destruct_date;?>">
-                    </div> -->
+                    </div>
                     <div class="item">
-						<label>Reset 2FA</label>
 						<a href="edit_client.php?id=<?=$client_id;?>&reset=true" class="button button__raised button__inline mb1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.59 19.59"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,9.79A9.84,9.84,0,0,1,9.79,0a9.85,9.85,0,0,1,9.8,9.79,9.85,9.85,0,0,1-9.8,9.8A9.85,9.85,0,0,1,0,9.79Zm16.11,5.76a8.53,8.53,0,1,0-12.63,0c.9-1.24,3.24-2.47,6.31-2.47S15.21,14.3,16.11,15.55ZM6.46,7.71a3.48,3.48,0,0,1,3.33-3.6,3.48,3.48,0,0,1,3.33,3.6A3.46,3.46,0,0,1,9.79,11.4,3.48,3.48,0,0,1,6.46,7.71Z"/></g></g></svg>Re-authenticate Client</a>
 						<?=$reset;?>
                     </div>
@@ -172,13 +171,13 @@ require_once('page-sections/header-elements.php');
                         <div class="add-account__existing">
 							<div class="search-input"><input type="text" name="ac_name" size="80" class="ac_name" placeholder="Client Code or Account Display Name"><input type="hidden" id="ac_id" size="5"></div>
 							<button class="button button__raised addaccount" value="Add Account">Add Account</button>
-							<!--<button class="button button__raised addlinkedaccount" value="Add Linked Account">Add Linked Account</button>-->
+							<button class="button button__raised addlinkedaccount" value="Add Linked Account">Add Linked Account</button>
                         </div>
                     </div><!--add account-->
 
                     <div class="recess-box clientaccounts">
                         <div class="account-table">
-							<h2>Associated Accounts</h2>
+							<h2>Primary Accounts</h2>
                             <div class="account-table__head">
 								<label>Client Code</label>
                                 <label>Designation</label>
@@ -208,7 +207,7 @@ require_once('page-sections/header-elements.php');
                         </div><!--account table-->
 
 
-						<!--<div class="account-table">
+						<div class="account-table">
 							<h2>Linked Accounts</h2>
                             <div class="account-table__head">
 								<label>Client Code</label>
@@ -218,7 +217,7 @@ require_once('page-sections/header-elements.php');
 								<label>Priority</label>
                                 <label>Delete</label>
                             </div><!--head-->
-                           <!--<div id="blank">
+                           <div id="blank">
 							 <?php foreach($li_accounts as $li_account) {
 
 									$acc = getFields('tbl_accounts','id',$li_account['ac_account_id']); ?>
@@ -233,10 +232,10 @@ require_once('page-sections/header-elements.php');
 											<?php define('__ROOT__', dirname(dirname(__FILE__)));
 											include(__ROOT__.'/admin/images/delete.php'); ?></a>
 										</div><!--radio-->
-									<!--</div><!--body-->
+									</div><!--body-->
     			            <?php } ?>
 						   </div>
-					   <!--</div><!--account table-->
+                        </div><!--account table-->
                     </div>
                     <div class="commit-changes">
 						<p>Priority : <i>Higher numbers come first</i></p>

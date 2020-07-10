@@ -62,7 +62,7 @@ require_once('page-sections/header-elements.php');
 		<form action="editstaff.php?id=<?=$staff_id;?>" method="post" id="editstaff" name="editstaff" class="asset-form">
             <div class="content client">
                 <div class="client__pers-details" style="border:none;">
-                    <div class="item prefix mb1">
+                    <!--<div class="item prefix mb1">
                         <label>Prefix</label>
                         <div class="select-wrapper">
                             <select name="user_prefix" id="user_prefix" class="select-css">
@@ -72,7 +72,7 @@ require_once('page-sections/header-elements.php');
                                 <option value="Dr">Dr</option>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="item first-name">
                         <label>First Name</label>
                         <input type="text" id="staff_first_name" name="staff_first_name" value="<?= $staff_first_name;?>">

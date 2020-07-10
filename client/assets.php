@@ -1,24 +1,31 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 
-/*
-ini_set ("display_errors", "1");
-error_reporting(E_ALL);
-    */
+function array_flatten($array) { 
+  if (!is_array($array)) { 
+    return FALSE; 
+  } 
+  $result = array(); 
+  foreach ($array as $key => $value) { 
+    if (is_array($value)) { 
+      $result = array_merge($result, array_flatten($value)); 
+    } 
+    else { 
+      $result[$key] = $value; 
+    } 
+  } 
+  return $result; 
+} 
+
 
 $user_id = $_SESSION['fs_client_featherstone_uid'];
 $client_code = $_SESSION['fs_client_featherstone_cc'];
 $last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_client_code = "'.$client_code.'"');
-
-
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 
+
+
 $strategy = getField('tbl_fsusers','strategy','id',$_SESSION['fs_client_user_id']);
-//REMOVE NEXT LINE WHEN PUSHING
-//$strategy = 'fs_growth_'.strtolower(getField('tbl_fsusers','strategy','id','5'));
-
-
-
 $strat_id = getField('tbl_fs_strategy_names','id','strat_name',$strategy);
 
 
@@ -28,15 +35,16 @@ try {
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-    $query = "SELECT *  FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND bl_live = 1;";
+    $query = "SELECT DISTINCT cat_id FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND strat_val > 0 AND bl_live = 1 order by cat_id ASC;";
     $result = $conn->prepare($query);
     $result->execute();
 
           // Parse returned data
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			 $assetData[] =  $row;
-
+			 $clientcats[] =  $row['cat_id'];
         }
+	
+	$client_cats = array_flatten($clientcats);
 	
 	
 	$query = "SELECT *  FROM `tbl_fs_categories` where bl_live = 1 order by id desc limit 1;";
@@ -50,7 +58,7 @@ try {
         }
 	
 
-  $conn = null;        // Disconnect
+  // $conn = null;        // Disconnect
 
 }
 
@@ -76,6 +84,8 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                     </div>
 
 <div class="asset-wrapper">
+	
+	<!-- ###########################       THE DONUT      ###################### -->
     <div class="asset-wrapper__chart">
 
         <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut" aria-labelledby="" role="img" style="transform:rotate(-90deg);">
@@ -87,25 +97,37 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
             Stroke-dashoffset: This is the running sum of the value of the holding, expressed as a negative value to enable positioning.
             -->
-            <?php foreach($assetData as $asset) {
-				$asset_color = getField('tbl_fs_assets','asset_color','id',$asset['asset_id']);
-				$asset_name = getField('tbl_fs_assets','fs_asset_name','id',$asset['asset_id']);
-				$thisAsset = $asset['strat_val'];
-				$assetBalance = 100 - $thisAsset;
-            ?>
+            <?php 
+			foreach($client_cats as $catid) {
+				
+				$asset_color = getField('tbl_fs_categories','cat_colour','id',$catid);
+				$asset_name = getField('tbl_fs_categories','cat_name','id',$catid);
+				$thisAsset = 0;
+				
+				$query = "SELECT * FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND cat_id LIKE '$catid' AND bl_live = 1;";
+				$result = $conn->prepare($query);
+				$result->execute();
 
-               <circle id="asset<?=$asset['asset_id'];?>" class="donut-segment <?=$asset['asset_id'];?> <?=$asset_name;?> asset<?=$asset['asset_id'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
-               <text x="22" y="22" text-anchor="middle" alignment-baseline="middle" class="asset<?=$asset['asset_id'];?>"><?=$thisAsset;?>%</text>
-               <?php $assetTotal = $thisAsset += $assetTotal;?>
-           <?php }?>
+				  // Parse returned data
+				  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+					 $thisAsset += $row['strat_val'];
+				  }
+				
+				$assetBalance = 100 - $thisAsset;
+				?>
+				<circle id="asset<?=$catid;?>" class="donut-segment <?=$catid;?> <?=$asset_name;?> asset<?=$catid;?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
+               <text x="22" y="22" text-anchor="middle" alignment-baseline="middle" class="asset<?=$catid;?>"><?=$thisAsset;?>%</text>
+				
+			<?php $assetTotal = $thisAsset += $assetTotal; }?>
+
         </svg>
+		
+		
         <div class="key border-box">
-            <?php foreach($assetData as $asset) {
+            <?php foreach($client_cats as $catid) {
 
-              $asset_color = getField('tbl_fs_assets','asset_color','id',$asset['asset_id']);
-				$asset_name = getField('tbl_fs_assets','fs_asset_name','id',$asset['asset_id']);
-				$thisAsset = $asset['strat_val'];
-				$assetBalance = 100 - $thisAsset;
+                $asset_color = getField('tbl_fs_categories','cat_colour','id',$catid);
+				$asset_name = getField('tbl_fs_categories','cat_name','id',$catid);
             ?>
             <div class="key__item">
                 <div class="color" style="background-color:<?= $asset_color;?>;"></div>
@@ -114,12 +136,65 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
             <?php }?>
         </div>
     </div>
-    <div class="asset-wrapper__table">
+    
+	
+	<!-- ###########################       LIST OF ASSETS      ###################### -->
+	
+	<div class="asset-wrapper__table">
         <div class="head">
             <h4 class="heading heading__4">Fund</h4>
-            <h4 class="heading heading__4">Growth Rate</h4>
+            <h4 class="heading heading__4"><!--Growth Rate--></h4>
         </div>
-        <?php foreach($assetData as $asset) {
+        <?php 
+			foreach($client_cats as $catid) {
+				
+				$asset_color = getField('tbl_fs_categories','cat_colour','id',$catid);
+				$asset_name = getField('tbl_fs_categories','cat_name','id',$catid);
+				
+				
+				
+
+				?>
+				<div id="asset<?=$catid;?>" class="item asset<?=$catid;?>" data-asset="asset<?=$catid;?>">
+					
+					<h4 class="heading heading__4"><div class="key__item"><div class="color" style="background-color:<?= $asset_color;?>;"></div><?=$asset_name;?></div></h4>
+					<div class="toggle button button__raised button__toggle">
+						<i class="fas fa-caret-down arrow"></i>
+					</div>
+					<p><table><?php 
+						$query = "SELECT *  FROM `tbl_fs_assets` where cat_id LIKE '$catid' AND bl_live = 1 order by id ASC;";
+						$result = $conn->prepare($query);
+						$result->execute();
+
+							  // Parse returned data
+							  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+								  echo ('<tr><td><strong>'.$row['fs_asset_name'].'</strong></td></tr>');
+								  echo ('<tr><td>'.$row['fs_asset_narrative'].'</td></tr>');
+							}
+					?></table></p>
+				</div>
+		
+				
+				<?php
+				/*$query = "SELECT * FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND cat_id LIKE '$catid' AND bl_live = 1;";
+				$result = $conn->prepare($query);
+				$result->execute();
+
+				  // Parse returned data
+				  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+					 $cat[$catid][] =  $row;
+				  }*/
+
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+	/*	foreach($assetData as $asset) {
 
           $asset_color = getField('tbl_fs_assets','asset_color','id',$asset['asset_id']);
 				$asset_name = getField('tbl_fs_assets','fs_asset_name','id',$asset['asset_id']);
@@ -135,8 +210,11 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
             </div>
             <p><?=$asset_narrative;?></p>
         </div>
-        <?php }?>
+        <?php }*/?>
     </div>
+	
+	
+	
 </div>
     </div>
 </div>

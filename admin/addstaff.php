@@ -3,12 +3,17 @@ include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 require_once '../googleLib/GoogleAuthenticator.php';
 $ga = new GoogleAuthenticator();
 $secretish = $ga->createSecret();
-
+/*
 foreach($_POST as $key => $data) {
 	if($key!="button"){
 		echo ('$'.$key.' = $_POST["'.$key.'"]   :   '.$data.'<br>');
 	}
 }
+*/
+
+if($ref!='https://dashboard.featherstonepartners.co.uk/admin/add_staff.php'){ header("location:http://www.google.com"); };
+
+
 
 $user_prefix = $_POST["user_prefix"];
 $staff_first_name = sanSlash($_POST["staff_first_name"]);
@@ -33,6 +38,8 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $conn->exec($sql);
 
 $conn = null;
+
+
 
 header("location:staff.php");
 

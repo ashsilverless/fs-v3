@@ -27,7 +27,7 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 		$stratID = $strategy['id'];
 		$val = $_POST['strat_'.$stratID];
 		
-		$sql_strat = "INSERT INTO `tbl_fs_asset_strat_vals` (`asset_id`, `strat_id`, `strat_val`, `confirmed_by`, `confirmed_date`) VALUES ('$lastId', '$stratID', '$val', '$name', '$str_date')";
+		$sql_strat = "INSERT INTO `tbl_fs_asset_strat_vals` (`asset_id`, `strat_id`, `strat_val`, `cat_id`, `confirmed_by`, `confirmed_date`) VALUES ('$lastId', '$stratID', '$val', '$cat_id', '$name', '$str_date')";
 		$conn->exec($sql_strat);
 		$laststratId = $conn->lastInsertId();
 		

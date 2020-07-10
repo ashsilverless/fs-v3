@@ -4,6 +4,8 @@ include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 
 $user_type = array("1"=>"Admin", "2"=>"Super Admin", "999"=>"<i style='color:red;font-weight:bold;font-size:0.9em;'>! Temporary Block !</i>");
 
+$datetime = new DateTime('tomorrow');
+$tomorrow = $datetime->format('Y-m-d');
 
 ?>
 <?php
@@ -18,7 +20,7 @@ require_once('page-sections/header-elements.php');
 		<form action="addclient.php" method="post" id="addclient" name="addclient" class="asset-form">
             <div class="content client">
                 <div class="client__pers-details">
-                    <div class="item prefix mb1">
+                    <!--<div class="item prefix mb1">
                         <label>Prefix</label>
                         <div class="select-wrapper">
                             <select name="user_prefix" id="user_prefix" class="select-css">
@@ -28,7 +30,7 @@ require_once('page-sections/header-elements.php');
                                 <option value="Dr">Dr</option>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="item first-name">
                         <label>First Name</label>
                         <input type="text" id="first_name" name="first_name" value="">
@@ -75,7 +77,7 @@ require_once('page-sections/header-elements.php');
 
                     <div class="item">
                         <label>Expires</label>
-                        <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="">
+                        <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="<?=$tomorrow;?>">
                     </div>
                     <div></div>
                 </div>

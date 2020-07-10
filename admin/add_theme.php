@@ -13,29 +13,6 @@ $initialDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
             <input type="text" id="theme_title" name="theme_title" class="mb1"></p>
             <label>Narrative</label>
             <textarea name="theme_narrative" id="theme_narrative" class="mb1"></textarea>
-            <label>Portfolio</label>
-			<div class="row mt1">
-				<?php $stratHeadings =  getTable('tbl_fs_strategy_names');
-				foreach ($stratHeadings as $strathead):
-                    $sv_id = getStratTheme($theme_id,$strathead['id'],'id');  $sv_val =  getStratTheme($theme_id,$strathead['id'],'strat_val');
-                    $nmid = 'strat_'.$sv_id;
-                    $oldId .= $sv_id.'|';
-                    $portfolioChar = substr($strathead['strat_name'], -1);
-				?>
-					<div class="col-3">
-                        <label><?=$portfolioChar;?></label>
-                        <div class="radio-item">
-                            <input class="star-marker" name="strat_<?=$strathead['id'];?>" type="checkbox" id="strat_<?=$strathead['id'];?>" value="1" <?php if($sv_val=='1'){?>checked="checked"<?php }?>>
-                            <?php define('__ROOT__', dirname(dirname(__FILE__)));
-                            include(__ROOT__.'/admin/images/star.php'); ?><span><?=$sv_val;?></span>
-                        </div><!--radio-->
-					</div>
-				<?php endforeach; ?>
-
-
-            </div><!--row-->
-
-
         </div><!--details-->
         <div class="categories">
             <div id="icon_upload" style="float:left;">
@@ -53,6 +30,27 @@ $initialDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
 				-->
 			</div>
         </div><!--cats-->
+        <div class="strategy">
+            <label>Strategy</label>
+			<div class="row mt1">
+				<?php $stratHeadings =  getTable('tbl_fs_strategy_names');
+				foreach ($stratHeadings as $strathead):
+                    $sv_id = getStratTheme($theme_id,$strathead['id'],'id');  $sv_val =  getStratTheme($theme_id,$strathead['id'],'strat_val');
+                    $nmid = 'strat_'.$sv_id;
+                    $oldId .= $sv_id.'|';
+                    $portfolioChar = $strathead['strat_name'];
+				?>
+					<div class="col-3">
+                        <label><?=$portfolioChar;?></label>
+                        <div class="radio-item">
+                            <input class="star-marker" name="strat_<?=$strathead['id'];?>" type="checkbox" id="strat_<?=$strathead['id'];?>" value="1" <?php if($sv_val=='1'){?>checked="checked"<?php }?>>
+                            <?php define('__ROOT__', dirname(dirname(__FILE__)));
+                            include(__ROOT__.'/admin/images/star.php'); ?><span><?=$sv_val;?></span>
+                        </div><!--radio-->
+					</div>
+				<?php endforeach; ?>
+            </div><!--row-->
+        </div>
     </div><!--content-->
 
     <div class="control">

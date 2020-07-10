@@ -112,7 +112,7 @@ require_once('page-sections/header-elements.php');
             <h3 class="heading heading__4"><?= $row['isin_code'];?></h3>
         </div>
         <div>
-            <h3 class="heading heading__4"><?= $totshares;?></h3>
+            <h3 class="heading heading__4"><?=number_format($totshares,3);?></h3>
         </div>
         <div>
             <h3 class="heading heading__4"><?= $row['benchmark'];?></h3>

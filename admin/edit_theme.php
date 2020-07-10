@@ -41,14 +41,30 @@ catch(PDOException $e) {
     <input type="text" id="theme_title" name="theme_title" value="<?=$theme_title;?>" class="mb1">
     <label>Narrative</label>
     <textarea name="theme_narrative" id="theme_narrative" class="mb2"><?=$theme_narrative;?></textarea>
-    <label>Portfolio</label>
+</div><!--details-->
+
+    <div class="categories">
+        <div id="icon_upload" style="float:left;">
+            <label>Upload Icon</label>
+            <div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+            <div id="fundcontainer">
+                <a id="pickfund" href="javascript:;" class="button button__raised button__inline mb1">Select File</a>
+            </div>
+            <input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>">
+            <div id="theme_icon" class="mt1"><?=$theme_icon;?></div>
+        </div>
+
+    </div><!--cats-->
+
+<div class="strategy">
+    <label>Strategy</label>
 	<div class="row mt1">
 				<?php $stratHeadings =  getTable('tbl_fs_strategy_names');  $newId = 0;  $oldId = '';
 				foreach ($stratHeadings as $strathead):
 					$sv_id = getStratTheme($theme_id,$strathead['id'],'id');  $sv_val =  getStratTheme($theme_id,$strathead['id'],'strat_val');
 					$nmid = 'strat_'.$sv_id;
 					$oldId .= $sv_id.'|';
-                    $portfolioChar = substr($strathead['strat_name'], -1);
+                    $portfolioChar = $strathead['strat_name'];
 				?>
 					<div class="col-3">
 						<label><?=$portfolioChar;?></label>
@@ -62,28 +78,7 @@ catch(PDOException $e) {
 				<input type="hidden" id="old_strats" name="old_strats" value="<?=substr($oldId, 0, -1);?>">
 
             </div><!--row-->
-
-
-
-
-</div><!--details-->
-
-<div class="categories">
-    <div id="icon_upload" style="float:left;">
-        <label>Upload Icon</label>
-    <div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
-    <div id="fundcontainer">
-        <a id="pickfund" href="javascript:;" class="button button__raised button__inline mb1">Select File</a>
-    </div><input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>">
-    <div id="theme_icon" class="mt1"><?=$theme_icon;?></div>
-	<!--
-	<label>Upload Icon</label>
-    <input type="text" id="theme_icon" name="theme_file" value="File Name" class="mb1">
-    <a href="#" class="button button__raised button__inline">Select File</a>
-    -->
 </div>
-
-</div><!--cats-->
 
 </div><!--content-->
 
