@@ -8,7 +8,12 @@ $('.asset-wrapper__table .toggle').on('click', function() {
     $('text.active').removeClass('active');
     $('circle' + selectedId).addClass('selected');
     $('text' + selectedId).addClass('active');
-
+    function scrollToTop(){
+      $('html, body').animate({
+          scrollTop: $('.item.active').offset().top
+      }, 'slow');
+      }
+      setTimeout(scrollToTop, 600);
 })
 
 $('circle.donut-segment').on('click', function() {

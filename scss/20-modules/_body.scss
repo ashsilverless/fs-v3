@@ -596,6 +596,8 @@ form.fund {
     margin-top:2rem;
     &__chart {
         align-self: flex-start;
+        position: sticky;
+        top:50px;
         svg {
             overflow: visible;
             height: auto;
