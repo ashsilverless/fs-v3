@@ -108,7 +108,7 @@ require_once('page-sections/header-elements.php');
           					  <option value="Dr" <?php if($user_prefix=='Dr'){?>  selected="selected"<?php }?>>Dr</option>
                             </select>
                         </div><!--sel-->
-                    </div>-->
+                    <!--</div>-->
                     <div class="item first-name">
                         <label>First Name</label>
                         <input type="text" id="first_name" name="first_name" value="<?= $first_name;?>">
@@ -171,13 +171,12 @@ require_once('page-sections/header-elements.php');
                         <div class="add-account__existing">
 							<div class="search-input"><input type="text" name="ac_name" size="80" class="ac_name" placeholder="Client Code or Account Display Name"><input type="hidden" id="ac_id" size="5"></div>
 							<button class="button button__raised addaccount" value="Add Account">Add Account</button>
-							<button class="button button__raised addlinkedaccount" value="Add Linked Account">Add Linked Account</button>
                         </div>
                     </div><!--add account-->
 
                     <div class="recess-box clientaccounts">
                         <div class="account-table">
-							<h2>Primary Accounts</h2>
+							<h2>Accounts</h2>
                             <div class="account-table__head">
 								<label>Client Code</label>
                                 <label>Designation</label>
@@ -206,36 +205,6 @@ require_once('page-sections/header-elements.php');
 						   </div>
                         </div><!--account table-->
 
-
-						<div class="account-table">
-							<h2>Linked Accounts</h2>
-                            <div class="account-table__head">
-								<label>Client Code</label>
-                                <label>Designation</label>
-                                <label>Type</label>
-                                <label>Display Name</label>
-								<label>Priority</label>
-                                <label>Delete</label>
-                            </div><!--head-->
-                           <div id="blank">
-							 <?php foreach($li_accounts as $li_account) {
-
-									$acc = getFields('tbl_accounts','id',$li_account['ac_account_id']); ?>
-									<div class="account-table__body accounts">
-										<p><?=$acc[0]['ac_client_code'];?></p>
-										<p><?=$acc[0]['ac_designation'];?></p>
-										<p><?=$acc[0]['ac_product_type'];?></p>
-										<p><?=$acc[0]['ac_display_name'];?></p>
-										<p><?=$li_account['ca_order_by'];?></p>
-										<div class="radio-item">
-											<a href="del_client_account.php?id=<?=$li_account['id']?>" class="delclientaccount"><input class="star-marker " name="del" type="checkbox" id="del" value="1">
-											<?php define('__ROOT__', dirname(dirname(__FILE__)));
-											include(__ROOT__.'/admin/images/delete.php'); ?></a>
-										</div><!--radio-->
-									</div><!--body-->
-    			            <?php } ?>
-						   </div>
-                        </div><!--account table-->
                     </div>
                     <div class="commit-changes">
 						<p>Priority : <i>Higher numbers come first</i></p>

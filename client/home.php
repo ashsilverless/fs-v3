@@ -187,7 +187,7 @@ require_once(__ROOT__.'/modals/maintenance.php');
 
 		$(document).on('click', '.graphtime', function(e) {
             e.preventDefault();
-			$(".chartcontainer").html('<h3>Compiling Data....</h3>');
+			$(".chartcontainer").html('<p><i class="fas fa-spinner"></i> Compiling Chart Data</p>');
 			var ac_id = getParameterByName('ac_id',$(this).attr('href'));
             var t = getParameterByName('t',$(this).attr('href'));
             $(".chartcontainer").load("chart.php?ac_id="+ac_id+"&t="+t);

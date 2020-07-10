@@ -127,6 +127,8 @@
         }
     }
     &__extended {
+        grid-template-columns: 20% 23% 20% 20% 16%;
+        margin-top: 1rem;
         align-items: flex-start;
         border-bottom: 1px solid $color_grey_light;
         margin-bottom:0.5rem;
@@ -1059,7 +1061,7 @@ form.settings {
                 grid-column: 1/2;
             }
             &.first-name {
-                grid-column: 2/4;
+                grid-column: 1/4;
             }
             &.second-name {
                 grid-column: 4/7;
@@ -1104,6 +1106,9 @@ form.settings {
         .button {
             grid-column: 2/3;
             margin-bottom: 2rem;
+            &.addaccount {
+                margin-top:1rem;
+            }
         }
         .recess-box {
             grid-column:1/3;

@@ -113,6 +113,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 		console.log(ac_id);
       $("#edit-account").load("edit_account.php?id="+ac_id);
       $("#edit-account").show();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
     });
 
     </script>
