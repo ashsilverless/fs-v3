@@ -267,11 +267,29 @@ debug($account_shares);
 							</div>
 							<div class="split">
 								<div><h4 class="heading heading__5">&pound;<?=number_format($data['book_cost'],2);?></h4></div>
-								<div><h4 class="heading heading__5">&pound;<?=number_format($data['value'],2);?></h4></div>
+								<div><h4 class="heading heading__5
+                                    <?php if(($data['value']) < 0) {
+                                        echo 'negative-value';
+                                        } else {
+                                        echo '';
+                                        };?>
+                                    ">&pound;<?=number_format($data['value'],2);?></h4></div>
 							</div>
 							<div class="split">
-								<div><h4 class="heading heading__5">&pound;<?=number_format($data['gain_pounds'],2);?></h4></div>
-								<div><h4 class="heading heading__5"><?=number_format($data['gain_percent'],2);?>&percnt;</h4></div>
+								<div><h4 class="heading heading__5
+                                    <?php if(($data['gain_pounds']) < 0) {
+                                        echo 'negative-value';
+                                        } else {
+                                        echo '';
+                                        };?>
+                                    ">&pound;<?=number_format($data['gain_pounds'],2);?></h4></div>
+								<div><h4 class="heading heading__5
+                                    <?php if(($data['gain_percent']) < 0) {
+                                        echo 'negative-value';
+                                        } else {
+                                        echo '';
+                                        };?>
+                                    "><?=number_format($data['gain_percent'],2);?>&percnt;</h4></div>
 							</div>
 							<div>
 								<h4 class="heading heading__5"><?=$data['benchmark'];?>&percnt;</h4>
