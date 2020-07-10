@@ -1435,6 +1435,7 @@ form.settings {
         display: none;
     }
 }
-.negative-value {
-    color: $color_red;
+.negative-value,
+.data-table__extended .negative-value {
+    color: $color_red !important;
 }
