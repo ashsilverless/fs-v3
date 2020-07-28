@@ -269,7 +269,8 @@ require_once(__ROOT__.'/global-scripts.php');?>
 
 		$( document ).ready(function() {
 
-
+			$('#destruct_date').datepicker({  format: "dd mm yyyy" , todayHighlight: true });
+			
 			$('input.ac_name').typeahead({
                 name: 'ac_name',
 				display: 'value',

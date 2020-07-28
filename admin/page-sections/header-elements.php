@@ -22,7 +22,7 @@
                     $current_page = PageName();?>
                       <a class="main-menu__item <?php echo $current_page == 'home.php' ? 'active':NULL ?>" href="home.php">Dashboard</a>
                       <a class="main-menu__item <?php echo $current_page == 'funds.php' ? 'active':NULL ?>" href="funds.php">Funds</a>
-                      <a class="main-menu__item <?php echo $current_page == 'assets.php' ? 'active':NULL ?>" href="assets.php">Asset Allocation & Holdings</a>
+                      <a class="main-menu__item <?php echo $current_page == 'assets.php' ? 'active':NULL ?>" href="assets.php">Holdings</a>
                       <a class="main-menu__item <?php echo $current_page == 'themes.php' ? 'active':NULL ?>" href="themes.php">Themes</a>
                       <a class="main-menu__item <?php echo $current_page == 'peers.php' ? 'active':NULL ?>" href="peers.php">Peers</a>
 					  <a class="main-menu__item <?php echo $current_page == 'accounts.php' ? 'active':NULL ?>" href="accounts.php">Accounts</a>

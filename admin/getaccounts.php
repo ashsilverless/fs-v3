@@ -20,7 +20,7 @@ if($recordsPerPage==""){
 	$recordsPerPage = 10;
 }
 
-
+debug($_GET['rpp'].'  :  '.$page);
 
 //    Get the account and fund details
 try {

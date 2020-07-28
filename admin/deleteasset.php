@@ -13,6 +13,10 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     $conn->exec($sql);
 
+	$sql = "UPDATE `tbl_fs_asset_strat_vals` SET bl_live = 0, confirmed_by = '$name', confirmed_date = '$str_date' WHERE asset_id LIKE '$id' ;";
+
+    $conn->exec($sql);
+
 $conn = null;
 
 

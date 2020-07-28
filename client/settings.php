@@ -80,7 +80,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
                 <div class="fixed-details">
                     <h2 class="heading heading__2">Details</h2>
-                    <label>Prefix</label>
+                    <!--<label>Prefix</label>
                         <div class="select-wrapper">
                             <select name="user_prefix" id="user_prefix" class="select-css">
 								<option value="Mr" <?php if($clientData[0]['first_name']=='Mr'){?>selected<?php }?>>Mr</option>
@@ -88,7 +88,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                                 <option value="Miss" <?php if($clientData[0]['first_name']=='Miss'){?>selected<?php }?>>Miss</option>
                                 <option value="Dr" <?php if($clientData[0]['first_name']=='Dr'){?>selected<?php }?>>Dr</option>
                             </select>
-                        </div>
+                        </div>-->
 					
 					<label for="first_name" id="firstnamelabel">First Name</label>
                     <input type="text" id="first_name" name="first_name" value="<?=$clientData[0]['first_name'];?>">

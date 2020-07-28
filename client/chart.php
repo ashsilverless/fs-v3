@@ -58,6 +58,12 @@ $thisday = $today;
 $time = strtotime($today.' -'.$time_period.' day');
 $lastyear = date("Y-m-d", $time);
 
+$time = strtotime("$lastyear first Monday");
+	$lastyear = date("Y-m-d", $time);
+
+
+
+
 if( $dl_data == 'dl'){
 			echo ($title."\n\n");
 			echo ("Date,ISIN,Value,Shares,Fund Price\n");
@@ -69,7 +75,7 @@ for($a=0;$a<$time_period;$a+=$step){
 
 	$time = strtotime($lastyear.'+'.$a.' day');
 	$thedate = date("Y-m-d", $time);
-	$weekday = date("N", $thedate);
+	$weekday = date("N", $time);
 
 	if($weekday<6){
 
@@ -131,11 +137,13 @@ if( $dl_data != 'dl'){
 <div class="container account-chart-wrapper">
     <div class="row">
         <div class="col-md-12 controls">
-            <h5 class="heading heading__5">Chart Period</h5>
+			<h3 class="heading heading__3" style="text-align:center;"><?=$title;?></h3>
+            <p class="heading heading__5" style="text-align:center;">Chart Period&emsp;:&emsp;
             <a href="#?t=180&ac_id=<?=$ac_id;?>" class="button button__inline graphtime" <?php if($time_period==180){ echo($style1); };?>>6 Months</a>
             <a href="#?t=365&ac_id=<?=$ac_id;?>" class="button button__inline graphtime" <?php if($time_period==365){ echo($style1); };?>>1 Year</a>
             <a href="#?t=1095&ac_id=<?=$ac_id;?>" class="button button__inline graphtime" <?php if($time_period==1095){ echo($style1); };?>>3 Years</a>
-            <!--<a href="#?t=1825&ac_id=<?=$ac_id;?>" class="graphtime">5 Years</a>-->
+			<a href="#?t=1825&ac_id=<?=$ac_id;?>" class="button button__inline graphtime" <?php if($time_period==1825){ echo($style1); };?>>5 Years</a>
+			<a href="#?t=3650&ac_id=<?=$ac_id;?>" class="button button__inline graphtime" <?php if($time_period==3650){ echo($style1); };?>>10 Years</a></p>
         </div>
     </div>
 	<div class="row">
@@ -146,7 +154,7 @@ if( $dl_data != 'dl'){
 
 	<div class="row">
 		<div class="col-md-12">
-			<p style="font-size:0.7em; color:#AAA;">Execution Time : <?=$time_elapsed_secs;?></p>
+			<p style="font-size:0.6em; color:#868686;">Execution Time : <?=$time_elapsed_secs;?></p>
 		</div>
 	</div>
 </div>
@@ -155,6 +163,12 @@ if( $dl_data != 'dl'){
 
 
    <script>
+	   
+	   var formatter = new Intl.NumberFormat('en-GB', {
+		  style: 'currency',
+		  currency: 'GBP',
+		});
+	   
 
 		Chart.defaults.global.legend.display = false;
 
@@ -183,7 +197,7 @@ if( $dl_data != 'dl'){
 				scales: {
 					yAxes: [{
 					  ticks: {
-						beginAtZero: true,
+						beginAtZero: false,
 						  userCallback: function(value, index, values) {
 							value = value.toString();
 							value = value.split(/(?=(?:...)*$)/);
@@ -194,7 +208,13 @@ if( $dl_data != 'dl'){
 					}]
 				},
 				tooltips: {
-					enabled: true
+					enabled: true,
+					displayColors: false,
+					callbacks: {
+						label: function(tooltipItem, data) {
+							return formatter.format(tooltipItem.yLabel);
+						},
+					}
 				},
 				legend: {
 					display: false,

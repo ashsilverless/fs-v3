@@ -215,19 +215,22 @@ debug($account_shares);
 								<p class="heading heading__4"><?=number_format($GrandGainPercent,2);?>&percnt;</p>
 							</div>
 							<div>
+								<!--<a data-toggle="modal" href="chart.php?ac_id=<?=$ac['id'];?>" data-target="#modal">Click me</a>-->
 								<a href="#?ac_id=<?=$ac['id'];?>" class="accountchart">
 								<div class="button button__raised button__inline chart-select">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.96 25.73"><defs><style>.cls-1{fill:#97ceb5;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M29.31,25.73H0V.65a.65.65,0,0,1,1.3,0V24.43h28a.65.65,0,0,1,0,1.3ZM10.3,22V14.69A.65.65,0,0,0,9.65,14H4.27a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65H9.65A.65.65,0,0,0,10.3,22ZM4.92,15.34H9v6H4.92ZM18.69,22V2.46A.65.65,0,0,0,18,1.81H12.65a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65H18A.65.65,0,0,0,18.69,22ZM13.3,3.11h4.09V21.35H13.3ZM27.07,22V10.65a.65.65,0,0,0-.65-.65H21a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65h5.38A.65.65,0,0,0,27.07,22ZM21.69,11.3h4.08V21.35H21.69Z"/></g></g></svg>
                                     <span>Chart</span>
                                 </div></a>
-
+								<div class="toggle button button__raised button__toggle reveal-detail">
+									<i class="fas fa-caret-down arrow"></i> <span class="data-toggle-button">Detail</span>
+								</div>
 							</div>
 						</div>
-                        <div class="toggle-wrapper">
+                        <!--<div class="toggle-wrapper">
                             <div class="toggle button button__raised button__toggle reveal-detail">
                                 <i class="fas fa-caret-down arrow"></i> <span class="data-toggle-button">View Detailed Breakdown</span>
                             </div>
-                        </div>
+                        </div>-->
 
 						<?php   $super_invested += $account_total;
 								$super_value += $grand_total_value;  ?>
@@ -324,7 +327,7 @@ debug($account_shares);
 
 <div class="data-table__foot">
                         <div>
-                            <h3 class="heading heading__4">Totals</h3>
+                            <h3 class="heading heading__4">Total</h3>
                         </div>
                         <div>
                             <h3 class="heading heading__4">&pound;<?=number_format($super_invested,2);?></h3>
@@ -338,4 +341,9 @@ debug($account_shares);
                         <div>
                             <h3 class="heading heading__4"><?=number_format($SuperGainPercent,2);?>&percnt;</h3>
                         </div>
+						<a href="#?ac_id=<?=$ac['id'];?>" class="multichart">
+								<div class="button button__raised button__inline chart-select">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.96 25.73"><defs><style>.cls-1{fill:#97ceb5;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M29.31,25.73H0V.65a.65.65,0,0,1,1.3,0V24.43h28a.65.65,0,0,1,0,1.3ZM10.3,22V14.69A.65.65,0,0,0,9.65,14H4.27a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65H9.65A.65.65,0,0,0,10.3,22ZM4.92,15.34H9v6H4.92ZM18.69,22V2.46A.65.65,0,0,0,18,1.81H12.65a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65H18A.65.65,0,0,0,18.69,22ZM13.3,3.11h4.09V21.35H13.3ZM27.07,22V10.65a.65.65,0,0,0-.65-.65H21a.65.65,0,0,0-.65.65V22a.65.65,0,0,0,.65.65h5.38A.65.65,0,0,0,27.07,22ZM21.69,11.3h4.08V21.35H21.69Z"/></g></g></svg>
+                                    <span>Chart</span>
+                                </div></a>
                     </div>

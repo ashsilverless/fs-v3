@@ -23,8 +23,14 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
 	if($confirmpassword!=""){
 		if(password_verify($originalpassword,$dbhash)){
+			
+			$nxtYear = date('Y-m-d', strtotime('+1 year'));
+			$_SESSION['fs_client_newregister'] == 1 ? $destruct_date = ", `destruct_date`='2099-01-01'" : $destruct_date = '';
+			
 			$msg='updated';
-			$sql = "UPDATE `tbl_fsusers` SET `user_prefix`='$user_prefix', `first_name`='$first_name', `last_name`='$last_name', `email_address`='$email_address', `password_hash`='$hashToStoreInDb' WHERE (`id`='$client_code')";
+			$sql = "UPDATE `tbl_fsusers` SET `user_prefix`='$user_prefix', `first_name`='$first_name', `last_name`='$last_name', `email_address`='$email_address', `password_hash`='$hashToStoreInDb'  $destruct_date  WHERE (`id`='$client_code')";
+
+			
 		}else{
 			$msg='badpass';
 		}

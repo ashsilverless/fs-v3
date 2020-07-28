@@ -75,10 +75,10 @@ function draw_calendar($dt,$month,$year,$isin_code){
 					 $cur_date == $today ? $calendar.= '<td class="calendar-day" style="background-color:rgba(255,255,0,0.3)" valign="top" align="center"><div class="day-number f-left"><span>'.$list_day.'</span></div><div id="clear" style="height:1px;clear:both;"></div>' : $calendar.= '<td class="calendar-day" valign="top" align="center" ><div class="day-number f-left"><span>'.$list_day.'</span></div><div id="clear" style="height:1px;clear:both;"></div>';
 
 
+					  $row['current_price'] > 10 ? $cp = '<span style="font-weight:bold;color:red">'.$row['current_price'].'</span>' : $cp = $row['current_price'];
 
 
-
-                     $calendar .= "<a href='#'  id='".$isin_code.$row['id']."' data-inputclass='input_num' data-type='text' data-pk='".$row['id']."' data-url='addexistingfundprice.php?ic=".$isin_code."' class='editme'>".$row['current_price']."</a>";
+                     $calendar .= "<a href='#'  id='".$isin_code.$row['id']."' data-inputclass='input_num' data-type='text' data-pk='".$row['id']."' data-url='addexistingfundprice.php?ic=".$isin_code."' class='editme'>".$cp."</a>";
 
 					 $priceID .= "#".$isin_code.$row['id'].",";
 

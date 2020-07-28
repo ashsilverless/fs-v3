@@ -6,7 +6,7 @@ error_reporting(E_ALL);
     */
 $user_id = $_SESSION['fs_client_featherstone_uid'];
 $client_code = $_SESSION['fs_client_featherstone_cc'];
-$last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_client_code = "'.$client_code.'"');
+$last_date = getLastDate('tbl_fs_categories','correct_at','correct_at','bl_live = "1"');
 
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 try {
